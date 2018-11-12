@@ -35,4 +35,4 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }
 
-apply from: "maven.jcenter.publish.gradle"
+apply from: "mavenUpload.gradle"
