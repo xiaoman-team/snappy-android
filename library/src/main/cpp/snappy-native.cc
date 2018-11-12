@@ -5,7 +5,7 @@
 #include "snappy-native.h"
 
 inline void throw_exception(JNIEnv *env, jobject self, int errorCode) {
-    jclass c = env->FindClass("com/jiechic/library/android/snappy/SnappyNative");
+    jclass c = env->FindClass("cn/xiaoman/library/android/snappy/SnappyNative");
     if (c == 0)
         return;
     jmethodID mth_throwex = env->GetMethodID(c, "throw_error", "(I)V");
@@ -16,14 +16,14 @@ inline void throw_exception(JNIEnv *env, jobject self, int errorCode) {
 
 JNIEXPORT jstring
 JNICALL
-Java_com_jiechic_library_android_snappy_SnappyNative_nativeLibraryVersion(
+Java_cn_xiaoman_library_android_snappy_SnappyNative_nativeLibraryVersion(
         JNIEnv *env, jobject /* this */) {
 
     return env->NewStringUTF("1.1.7");
 }
 
 JNIEXPORT jlong
-JNICALL Java_com_jiechic_library_android_snappy_SnappyNative_rawCompress__JJJ
+JNICALL Java_cn_xiaoman_library_android_snappy_SnappyNative_rawCompress__JJJ
         (JNIEnv *env, jobject self, jlong srcAddr, jlong length, jlong destAddr) {
     size_t compressedLength;
     snappy::RawCompress((char *) srcAddr, (size_t) length, (char *) destAddr, &compressedLength);
@@ -31,7 +31,7 @@ JNICALL Java_com_jiechic_library_android_snappy_SnappyNative_rawCompress__JJJ
 }
 
 JNIEXPORT jlong
-JNICALL Java_com_jiechic_library_android_snappy_SnappyNative_rawUncompress__JJJ
+JNICALL Java_cn_xiaoman_library_android_snappy_SnappyNative_rawUncompress__JJJ
         (JNIEnv *env, jobject self, jlong srcAddr, jlong length, jlong destAddr) {
 
     size_t uncompressedLength;
@@ -47,13 +47,13 @@ JNICALL Java_com_jiechic_library_android_snappy_SnappyNative_rawUncompress__JJJ
 }
 
 /*
- * Class:     com_jiechic_library_android_snappy_Snappy
+ * Class:     cn_xiaoman_library_android_snappy_Snappy
  * Method:    compress
  * Signature: (Ljava/nio/ByteBuffer;Ljava/nio/ByteBuffer;)J
  */
 JNIEXPORT jint
 JNICALL
-Java_com_jiechic_library_android_snappy_SnappyNative_rawCompress__Ljava_nio_ByteBuffer_2IILjava_nio_ByteBuffer_2I
+Java_cn_xiaoman_library_android_snappy_SnappyNative_rawCompress__Ljava_nio_ByteBuffer_2IILjava_nio_ByteBuffer_2I
         (JNIEnv *env, jobject self, jobject uncompressed, jint upos, jint ulen, jobject compressed,
          jint cpos) {
     char *uncompressedBuffer = (char *) env->GetDirectBufferAddress(uncompressed);
@@ -71,7 +71,7 @@ Java_com_jiechic_library_android_snappy_SnappyNative_rawCompress__Ljava_nio_Byte
 
 JNIEXPORT jint
 JNICALL
-Java_com_jiechic_library_android_snappy_SnappyNative_rawCompress__Ljava_lang_Object_2IILjava_lang_Object_2I
+Java_cn_xiaoman_library_android_snappy_SnappyNative_rawCompress__Ljava_lang_Object_2IILjava_lang_Object_2I
         (JNIEnv *env, jobject self, jobject input, jint inputOffset, jint inputLen, jobject output,
          jint outputOffset) {
     char *in = (char *) env->GetPrimitiveArrayCritical((jarray) input, 0);
@@ -100,7 +100,7 @@ Java_com_jiechic_library_android_snappy_SnappyNative_rawCompress__Ljava_lang_Obj
 
 JNIEXPORT jint
 JNICALL
-Java_com_jiechic_library_android_snappy_SnappyNative_rawUncompress__Ljava_lang_Object_2IILjava_lang_Object_2I
+Java_cn_xiaoman_library_android_snappy_SnappyNative_rawUncompress__Ljava_lang_Object_2IILjava_lang_Object_2I
         (JNIEnv *env, jobject self, jobject input, jint inputOffset, jint inputLength,
          jobject output, jint outputOffset) {
     char *in = (char *) env->GetPrimitiveArrayCritical((jarray) input, 0);
@@ -133,14 +133,14 @@ Java_com_jiechic_library_android_snappy_SnappyNative_rawUncompress__Ljava_lang_O
 }
 
 /*
- * Class:     com_jiechic_library_android_snappy_Snappy
+ * Class:     cn_xiaoman_library_android_snappy_Snappy
  * Method:    uncompress
  * Signature: (Ljava/nio/ByteBuffer;Ljava/nio/ByteBuffer;)Z
  */
 
 JNIEXPORT jint
 JNICALL
-Java_com_jiechic_library_android_snappy_SnappyNative_rawUncompress__Ljava_nio_ByteBuffer_2IILjava_nio_ByteBuffer_2I
+Java_cn_xiaoman_library_android_snappy_SnappyNative_rawUncompress__Ljava_nio_ByteBuffer_2IILjava_nio_ByteBuffer_2I
         (JNIEnv *env, jobject self, jobject compressed, jint cpos, jint clen, jobject decompressed,
          jint dpos) {
     char *compressedBuffer = (char *) env->GetDirectBufferAddress(compressed);
@@ -163,27 +163,27 @@ Java_com_jiechic_library_android_snappy_SnappyNative_rawUncompress__Ljava_nio_By
 }
 
 /*
- * Class:     com_jiechic_library_android_snappy_Snappy
+ * Class:     cn_xiaoman_library_android_snappy_Snappy
  * Method:    maxCompressedLength
  * Signature: (J)J
  */
 
 JNIEXPORT jint
-JNICALL Java_com_jiechic_library_android_snappy_SnappyNative_maxCompressedLength
+JNICALL Java_cn_xiaoman_library_android_snappy_SnappyNative_maxCompressedLength
         (JNIEnv *, jobject, jint size) {
     size_t l = snappy::MaxCompressedLength((size_t) size);
     return (jint) l;
 }
 
 /*
- * Class:     com_jiechic_library_android_snappy_Snappy
+ * Class:     cn_xiaoman_library_android_snappy_Snappy
  * Method:    getUncompressedLength
  * Signature: (Ljava/nio/ByteBuffer;)J
  */
 
 JNIEXPORT jint
 JNICALL
-Java_com_jiechic_library_android_snappy_SnappyNative_uncompressedLength__Ljava_nio_ByteBuffer_2II
+Java_cn_xiaoman_library_android_snappy_SnappyNative_uncompressedLength__Ljava_nio_ByteBuffer_2II
         (JNIEnv *env, jobject self, jobject compressed, jint cpos, jint clen) {
     char *compressedBuffer = (char *) env->GetDirectBufferAddress(compressed);
     if (compressedBuffer == 0) {
@@ -203,7 +203,7 @@ Java_com_jiechic_library_android_snappy_SnappyNative_uncompressedLength__Ljava_n
 
 JNIEXPORT jint
 JNICALL
-Java_com_jiechic_library_android_snappy_SnappyNative_uncompressedLength__Ljava_lang_Object_2II
+Java_cn_xiaoman_library_android_snappy_SnappyNative_uncompressedLength__Ljava_lang_Object_2II
         (JNIEnv *env, jobject self, jobject input, jint offset, jint length) {
     char *in = (char *) env->GetPrimitiveArrayCritical((jarray) input, 0);
     if (in == 0) {
@@ -226,7 +226,7 @@ Java_com_jiechic_library_android_snappy_SnappyNative_uncompressedLength__Ljava_l
 
 
 JNIEXPORT jlong
-JNICALL Java_com_jiechic_library_android_snappy_SnappyNative_uncompressedLength__JJ
+JNICALL Java_cn_xiaoman_library_android_snappy_SnappyNative_uncompressedLength__JJ
         (JNIEnv *env, jobject self, jlong inputAddr, jlong len) {
 
 
@@ -243,7 +243,7 @@ JNICALL Java_com_jiechic_library_android_snappy_SnappyNative_uncompressedLength_
 
 JNIEXPORT jboolean
 JNICALL
-Java_com_jiechic_library_android_snappy_SnappyNative_isValidCompressedBuffer__Ljava_nio_ByteBuffer_2II
+Java_cn_xiaoman_library_android_snappy_SnappyNative_isValidCompressedBuffer__Ljava_nio_ByteBuffer_2II
         (JNIEnv *env, jobject self, jobject compressed, jint cpos, jint clen) {
     char *compressedBuffer = (char *) env->GetDirectBufferAddress(compressed);
     if (compressedBuffer == 0) {
@@ -257,7 +257,7 @@ Java_com_jiechic_library_android_snappy_SnappyNative_isValidCompressedBuffer__Lj
 
 JNIEXPORT jboolean
 JNICALL
-Java_com_jiechic_library_android_snappy_SnappyNative_isValidCompressedBuffer__Ljava_lang_Object_2II
+Java_cn_xiaoman_library_android_snappy_SnappyNative_isValidCompressedBuffer__Ljava_lang_Object_2II
         (JNIEnv *env, jobject self, jobject input, jint offset, jint length) {
     char *in = (char *) env->GetPrimitiveArrayCritical((jarray) input, 0);
     if (in == 0) {
@@ -272,7 +272,7 @@ Java_com_jiechic_library_android_snappy_SnappyNative_isValidCompressedBuffer__Lj
 
 
 JNIEXPORT jboolean
-JNICALL Java_com_jiechic_library_android_snappy_SnappyNative_isValidCompressedBuffer__JJJ
+JNICALL Java_cn_xiaoman_library_android_snappy_SnappyNative_isValidCompressedBuffer__JJJ
         (JNIEnv *env, jobject self, jlong inputAddr, jlong offset, jlong length) {
     if (inputAddr == 0) {
         // out of memory
@@ -285,7 +285,7 @@ JNICALL Java_com_jiechic_library_android_snappy_SnappyNative_isValidCompressedBu
 
 
 JNIEXPORT void
-JNICALL Java_com_jiechic_library_android_snappy_SnappyNative_arrayCopy
+JNICALL Java_cn_xiaoman_library_android_snappy_SnappyNative_arrayCopy
         (JNIEnv *env, jobject self, jobject input, jint offset, jint length, jobject output,
          jint output_offset) {
     char *src = (char *) env->GetPrimitiveArrayCritical((jarray) input, 0);
