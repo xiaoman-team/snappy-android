@@ -10,6 +10,7 @@
 snappy-android is a android port of the snappy
 <http://code.google.com/p/snappy/>, a fast C++ compresser/decompresser developed by Google.
 
+
 # Installation
 
 Using *JCenter*:
@@ -19,15 +20,15 @@ repositories {
 }
 
 dependencies {
-    compile 'com.jiechic.android.library:snappy-android:1.1.7'
+    compile 'cn.xiaoman.android.library:snappy-android:1.1.7'
 }
 ```
 
 ## Usage
-First, import `com.jiechic.library.android.snappy.Snappy` in your Java code:
+First, import `cn.xiaoman.library.android.snappy.Snappy` in your Java code:
 
 ```java
-import com.jiechic.library.android.snappy.Snappy;
+import cn.xiaoman.library.android.snappy.Snappy;
 ```
 
 Then use `Snappy.compress(byte[])` and `Snappy.uncompress(byte[])`:
@@ -43,6 +44,14 @@ System.out.println(result);
 ```
 
 In addition, high-level methods (`Snappy.compress(String)`, `Snappy.compress(float[] ..)` etc. ) and low-level ones (e.g. `Snappy.rawCompress(.. )`,  `Snappy.rawUncompress(..)`, etc.), which minimize memory copies, can be used.
+
+
+# Platform
+contain "armeabi-v7a"，"arm64-v8a"，"x86"，"x86_64" lib so
+
+don't support "armeabi","mips","mips64" platform because it is not supported in newest NDK
+
+
 
 
 Snappy-Android is developed by [Jiechic](http://www.jiechic.com/). Twitter  [@jiechic](http://twitter.com/#!/jiechic)
